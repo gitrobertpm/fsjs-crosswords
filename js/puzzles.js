@@ -43,7 +43,7 @@ const puzzles = {
     title: `Unit-Two`,
     puzzle: {
       documentobjectmodel: `What does DOM stand for?`,
-      addeventlistner: `Method used on DOM elements to listen for user interaction`,
+      addeventlistener: `Method used on DOM elements to listen for user interaction`,
       descendant: `A li element is a ___ of the ul element that contains it`,
       ancestor: `The body element is an ___ of all the elements it contains`,
       manipulation: `DOM ___ is the act of changing something in the DOM`,

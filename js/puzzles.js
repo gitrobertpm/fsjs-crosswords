@@ -27,7 +27,7 @@ const puzzles = {
       iterate: `We use loops to ___ over a collection`,
       array: `List-like object of comma separate values`,
       random: `Method called on the Math object to get a random number between zero and one`,
-      object: `Everything in JavaScript if an ___`,
+      object: `Everything in JavaScript is an ___`,
       github: `Popular web app for creating, storing and tracking a repository of code`,
       bracket: `Use ___ notation to access items in an array`,
       slack: `Popular remote communication tool used by many tech companies`,

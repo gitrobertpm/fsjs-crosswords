@@ -217,13 +217,13 @@ select::-ms-expand {
 .clues-wrapper {
   flex-flow: column wrap;
   justify-content: flex-start;
-  width: 44%;
+  width: 42%;
   max-width: 620px;
 }
 
 .clue-container {
   text-align: left;
-  padding: 0 15px;
+  padding: 0 15px 0 5px;
 }
 
 .clues {
@@ -242,7 +242,7 @@ select::-ms-expand {
 .answers-wrapper {
   flex-flow: row wrap;
   justify-content: space-around;
-  width: 54%;
+  width: 56%;
   max-width: 620px;
   height: 100%;
 }

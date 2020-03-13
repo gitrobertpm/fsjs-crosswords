@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Code Crossword</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+
+    <!-- Got this technique for blurring the background here - 
+    https://gordonlesti.com/css-blur-overlay/ -->
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="blur-svg">
+      <defs>
+          <filter id="blur-filter">
+              <feGaussianBlur stdDeviation="3"></feGaussianBlur>
+          </filter>
+      </defs>
+    </svg>
+
+    <div id="blur">
+      <header>
+        <div class="header-heading">
+          <a href="https://teamtreehouse.com/home" target="_blank"><img src="img/frogprint.png" alt="Treehouse logo" class="logo"></a>
+          <h1>Code Crossword</h1>
+          <div class="info">
+            <p>FSJS Techdegree</p>
+            <p>Vocab Exercise</p>
+          </div>
+        </div>
+      </header>
+  
+      <div id="game-board" class="game-board">
+        <div class="puzzle-heading">
+          <div id="title">
+            <label for="puzzle-selector">Puzzle
+              <select id="puzzle-selector" class="puzzle-selector">
+                <option hidden>Select a crossword</option>
+              </select>
+            </label>
+            
+          </div>
+          <span title="Puzzle Tips" id="info-open-button" class="info-open-button">?</span>
+        </div>
+  
+        <div id="clues-wrapper" class="clues-wrapper gb-section"> 
+          <div class="clues-heading">
+            <h3>Clues</h3>
+          </div>
+  
+          <div id="clue-container-across" class="clue-container clue-container-across">
+            <h5>Across</h5>
+          </div>
+  
+          <div id="clue-container-down" class="clue-container clue-container-down">
+            <h5>Down</h5>
+          </div>      
+        </div>
+  
+        <div id="answers-wrapper" class="answers-wrapper gb-section"> 
+  
+          <div class="clues-heading">
+            <h3>Answers</h3>
+          </div>
+          
+          <div id="answers-container" class="answers-container"></div>  
+        </div>
+  
+        <div class="help-container">
+          <p>If you run into trouble or have questions, be sure to reach out in <a href="https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat" target="_blank">Slack <img src="img/fsjs.png"></a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="overlay" class="overlay animated tada">
+      <div id="winner-message-container" class="winner-message-container">
+        <h2>Winner!</h2>
+        <div class="winner-message-inner-container">
+          <span>Awesome work on this vocabulary exercise!</span>
+          <span>If you enjoyed it, share it on <a href="https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat" target="_blank">Slack <img src="img/fsjs.png"></a>.</span>
+        </div>
+        <button id="overlay-button" class="control-btn">Play Again?</button>
+      </div>
+    </div>
+
+    <div id="info-overlay" class="info-overlay animated zoomIn">
+      <div id="info-message-container" class="info-message-container">
+        <h2>Puzzle Tips</h2>
+        <div class="info-message-inner-container">
+          <span>Select a puzzle from the main Puzzle menu on the home page</span>
+          <span>Arrow keys will navigate about puzzle cells</span>
+          <span>Puzzle functionality is fairly intuitive</span>
+          <span>On focus, cells move cursor to end of input</span>
+          <span>Cells prevent multiple characters</span>
+          <span>Cells resolve space characters</span>
+          <span>Typing into cells auto updates focus to next likely cell</span>
+          <span>But occasionally, focus is moved to the wrong cell</span>
+          <span>If you run into trouble or have questions, be sure to reach out in <a href="https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat" target="_blank">Slack <img src="img/fsjs.png"></a></span>
+        </div>
+        <button id="info-close-button" class="info-close-button">X</button>
+      </div>
+    </div>
+
+    <script src="js/puzzles.js"></script>
+    <script src="js/puzzle-master-2.js"></script>
+    <script src="js/display.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -254,7 +254,7 @@ const initDisplay = () => {
                 }
               });
 
-              this.addEventListener('click', e => {
+              td.addEventListener('click', e => {
                 let val = e.target.value;
                 if (val.length === 1) {
                   setTimeout(() => { 

@@ -17,7 +17,7 @@ let sideToggle = true;
  * Initialize crossword puzzle
  * @param { {} } puzzle 
  */
-const initPuzzle = (puzzle) => {
+const initPuzzle = (puzzle, size) => {
 
   // Set initial data
   currentPuzzle = puzzle.puzzle;
@@ -45,7 +45,7 @@ const initPuzzle = (puzzle) => {
     return matrix;
   }
 
-  puzzleMatrix = createMatrix((longest * 2) - 2);
+  puzzleMatrix = createMatrix(size || (longest * 2) - 2);
 
   /**
    * Add answer to matrix and store answer data in puzzle data object

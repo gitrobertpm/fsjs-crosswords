@@ -255,12 +255,14 @@ const initDisplay = () => {
               });
 
               td.addEventListener('click', e => {
-                let val = e.target.value;
-                if (val.length === 1) {
-                  setTimeout(() => { 
-                    e.target.value = '';
-                    e.target.value = val;
-                  }, 100);
+                if (e.target.tagName === 'INPUT') {
+                  let val = e.target.value;
+                  if (val.length === 1) {
+                    setTimeout(() => { 
+                      e.target.value = '';
+                      e.target.value = val;
+                    }, 100);
+                  }
                 }
               });
 

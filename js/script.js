@@ -41,6 +41,7 @@ const reset = () => {
   currentPuzzle = {};
   puzzleMatrix = [];
   puzzleData = {};
+  sideToggle = true;
   acrossDisplay.innerHTML = '<h5>Across</h5>';
   downDisplay.innerHTML = '<h5>Down</h5>';
   answersDisplay.innerHTML = '';
@@ -51,9 +52,12 @@ const reset = () => {
 // Puzzle selector
 puzzleSelector.addEventListener('change', e => {
   reset();
-  if (e.target.value.toLowerCase() === 'unittwo') sideToggle = false;
   if (e.target.value.toLowerCase() === 'unitthree') sideToggle = false;
-  initPuzzle(puzzles[e.target.value.toLowerCase()]);
+  if (e.target.value.toLowerCase() === 'unittwo') {
+    initPuzzle(puzzles[e.target.value.toLowerCase()], 30);
+  } else {
+    initPuzzle(puzzles[e.target.value.toLowerCase()]);
+  }
   initDisplay();
 });
 

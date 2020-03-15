@@ -26,6 +26,7 @@ const initDisplay = () => {
 
   // Initialize variable to store previous cell filled in
   let prevCell;
+  let backspacePrevCell;
 
   /**
    * Main Puzzle Functionality
@@ -34,16 +35,53 @@ const initDisplay = () => {
   const puzzleListener = (e, space) => {
     const rows = document.querySelectorAll('tr');
 
-    // Remove spaces
-    if (e.target.value === ' ') {
-      e.target.value = '';
-    }
-
     // Initialize variables to store first and final row and column indexes
     let firstRowIndex;
     let firstColumnIndex;
     let finalRowIndex;
     let finalColumnIndex = rows[0].children[rows[0].children.length - 1];
+
+    // Set current cell and current row and column indexes
+    const currentCell = e.target;
+    const currentRowIndex = e.target.getAttribute('data-row');
+    const currentColumnIndex = e.target.getAttribute('data-column');    
+
+    // Set next and previous row and column indexes
+    const nextRowIndex = (+currentRowIndex + 1) > finalRowIndex ? finalRowIndex : +currentRowIndex + 1;
+    const nextColumnIndex = (+currentColumnIndex + 1) > finalColumnIndex ? finalColumnIndex : +currentColumnIndex + 1;
+    const prevRowIndex = (+currentRowIndex - 1) < firstRowIndex ? firstRowIndex : +currentRowIndex - 1;
+    const prevColumnIndex = (+currentColumnIndex - 1) < firstColumnIndex ? firstColumnIndex : +currentColumnIndex - 1;
+    
+    // Set next and prev row and column cells
+    const nextAcrossCell = rows[currentRowIndex].children[nextColumnIndex];
+    const nextDownCell = rows[nextRowIndex].children[currentColumnIndex];
+    const prevAcrossCell = rows[currentRowIndex].children[prevColumnIndex];
+    const prevDownCell = rows[prevRowIndex].children[currentColumnIndex];
+
+    // Remove spaces
+    if (e.target.value === ' ') {
+      e.target.value = '';
+    }
+
+    if (e.keyCode === 8) {
+      console.log(prevCell, currentCell, backspacePrevCell)
+      if (prevCell) {
+        if (prevCell !== currentCell) {
+          prevCell.value = '';
+          prevCell.focus();
+        }
+        if (prevCell.getAttribute('data-row') > prevDownCell.getAttribute('data-row') && prevDownCell.children[0]) {
+          prevDownCell.children[0].value = '';
+          prevDownCell.children[0].focus();
+        } else if (prevCell.getAttribute('data-column') > prevAcrossCell.getAttribute('data-column') && prevAcrossCell.children[0]) {
+          prevAcrossCell.children[0].value = '';
+          prevAcrossCell.children[0].focus();
+        }
+      }
+
+      // Set previously clicked cell for next move
+      prevCell = currentCell; 
+    }
     
     // Set first and final row indexes
     [...rows].forEach((row, i) => {
@@ -57,55 +95,15 @@ const initDisplay = () => {
       if ( i > firstColumnIndex && finalColumnIndex === undefined && [...col.classList].includes('hide-column')) finalColumnIndex = i - 1;
     });
 
-    // HELPFUL LOGS for first and final row and column indexes
-    // console.log('firstRowIndex: ', firstRowIndex);
-    // console.log('firstColumnIndex: ', firstColumnIndex);
-    // console.log('finalRowIndex: ', finalRowIndex);
-    // console.log('finalColumnIndex: ', finalColumnIndex);
-    // console.log(' ')
-    
-    // Set current cell and current row and column indexes
-    const currentCell = e.target;
-    const currentRowIndex = e.target.getAttribute('data-row');
-    const currentColumnIndex = e.target.getAttribute('data-column');
-    
-    // HELPFUL LOGS for current cell and current row and column indexes
-    // console.log('currentCell: ', currentCell);
-    // console.log('currentRowIndex: ', currentRowIndex);
-    // console.log('currentColumnIndex: ', currentColumnIndex);
-    // console.log(' ')
-
-    // Set next and previous row and column indexes
-    const nextRowIndex = (+currentRowIndex + 1) > finalRowIndex ? finalRowIndex : +currentRowIndex + 1;
-    const nextColumnIndex = (+currentColumnIndex + 1) > finalColumnIndex ? finalColumnIndex : +currentColumnIndex + 1;
-    const prevRowIndex = (+currentRowIndex - 1) < firstRowIndex ? firstRowIndex : +currentRowIndex - 1;
-    const prevColumnIndex = (+currentColumnIndex - 1) < firstColumnIndex ? firstColumnIndex : +currentColumnIndex - 1;
-
-    // HELPFUL LOGS for next and previous row and column indexes
-    // console.log('nextRowIndex: ', nextRowIndex);
-    // console.log('nextColumnIndex: ', nextColumnIndex);
-    // console.log('prevRowIndex: ', prevRowIndex);
-    // console.log('prevColumnIndex: ', prevColumnIndex);
-    // console.log(' ')
-    
-    // Set next and prev row and column cells
-    const nextAcrossCell = rows[currentRowIndex].children[nextColumnIndex];
-    const nextDownCell = rows[nextRowIndex].children[currentColumnIndex];
-    const prevAcrossCell = rows[currentRowIndex].children[prevColumnIndex];
-    const prevDownCell = rows[prevRowIndex].children[currentColumnIndex];
-
-    // HELPFUL LOGS for next and prev row and column cells
-    // console.log('nextAcrossCell: ', nextAcrossCell);
-    // console.log('nextDownCell: ', nextDownCell);
-    // console.log('prevAcrossCell: ', prevAcrossCell);
-    // console.log('prevDownCell: ', prevDownCell);
-
     // Add arrow key functionality
     if (e.keyCode > 36 && e.keyCode < 41) {
       if (e.keyCode === 37 && prevAcrossCell && prevAcrossCell.children[0]) prevAcrossCell.children[0].focus();
       if (e.keyCode === 38 && prevDownCell && prevDownCell.children[0]) prevDownCell.children[0].focus();
       if (e.keyCode === 39 && nextAcrossCell && nextAcrossCell.children[0]) nextAcrossCell.children[0].focus();
       if (e.keyCode === 40 && nextDownCell && nextDownCell.children[0]) nextDownCell.children[0].focus();
+
+      // Set previously clicked cell for next move
+      prevCell = currentCell; 
     }
 
     // Add functionality for letter keys
@@ -120,7 +118,6 @@ const initDisplay = () => {
 
       // Handle next across and next down at intersections
       if (nextAcrossCell.innerHTML !== '' && nextDownCell.innerHTML !== '') {
-        
         if (prevCell) {
           if (prevCell === prevAcrossCell.children[0]) {
             nextLetterCell = nextAcrossCell.children[0];
@@ -144,11 +141,9 @@ const initDisplay = () => {
             nextLetterCell = currentCell;
           }
         }
-
-        // TODO: handle starting a down in the middle of an across
-        // if (nextAcrossCell.innerHTML !== '') {
-
-        // }
+        if (nextAcrossCell.innerHTML !== '' && nextDownCell.innerHTML !== '' && prevAcrossCell.innerHTML !== '' && prevAcrossCell.children[0].value === '') {
+          nextLetterCell = nextDownCell.children[0];
+        }
       }
 
       // Handle end of word and edge of puzzles
@@ -159,10 +154,6 @@ const initDisplay = () => {
       if (nextDownCell.innerHTML !== '' && [...rows[currentRowIndex].children[+currentColumnIndex + 1].classList].includes('hide-column')) { 
         nextLetterCell = nextDownCell.children[0];
       }
-
-      // HELPFUL LOGS for checking prev and next across and down
-      // console.log('prev across', prevAcrossCell.children[0], 'next across', nextAcrossCell.children[0]);
-      // console.log('prev down', prevDownCell.children[0], 'next down', nextDownCell.children[0]);
 
       // Set focus on next letter
       nextLetterCell.focus();
@@ -347,3 +338,33 @@ const initDisplay = () => {
 
   displayClues();
 };
+
+// HELPFUL LOGS for first and final row and column indexes
+// console.log('firstRowIndex: ', firstRowIndex);
+// console.log('firstColumnIndex: ', firstColumnIndex);
+// console.log('finalRowIndex: ', finalRowIndex);
+// console.log('finalColumnIndex: ', finalColumnIndex);
+// console.log(' ')
+
+// HELPFUL LOGS for current cell and current row and column indexes
+// console.log('currentCell: ', currentCell);
+// console.log('currentRowIndex: ', currentRowIndex);
+// console.log('currentColumnIndex: ', currentColumnIndex);
+// console.log(' ')
+
+// HELPFUL LOGS for next and previous row and column indexes
+// console.log('nextRowIndex: ', nextRowIndex);
+// console.log('nextColumnIndex: ', nextColumnIndex);
+// console.log('prevRowIndex: ', prevRowIndex);
+// console.log('prevColumnIndex: ', prevColumnIndex);
+// console.log(' ')
+
+// HELPFUL LOGS for next and prev row and column cells
+// console.log('nextAcrossCell: ', nextAcrossCell);
+// console.log('nextDownCell: ', nextDownCell);
+// console.log('prevAcrossCell: ', prevAcrossCell);
+// console.log('prevDownCell: ', prevDownCell);
+
+// HELPFUL LOGS for checking prev and next across and down
+// console.log('prev across', prevAcrossCell.children[0], 'next across', nextAcrossCell.children[0]);
+// console.log('prev down', prevDownCell.children[0], 'next down', nextDownCell.children[0]);

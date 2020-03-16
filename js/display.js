@@ -53,10 +53,10 @@ const initDisplay = () => {
     const prevColumnIndex = (+currentColumnIndex - 1) < firstColumnIndex ? firstColumnIndex : +currentColumnIndex - 1;
     
     // Set next and prev row and column cells
-    const nextAcrossCell = rows[currentRowIndex].children[nextColumnIndex];
-    const nextDownCell = rows[nextRowIndex].children[currentColumnIndex];
-    const prevAcrossCell = rows[currentRowIndex].children[prevColumnIndex];
-    const prevDownCell = rows[prevRowIndex].children[currentColumnIndex];
+    const nextAcrossCell = (rows[currentRowIndex].children[nextColumnIndex]) ? rows[currentRowIndex].children[nextColumnIndex] : currentCell;
+    const nextDownCell = (rows[nextRowIndex].children[currentColumnIndex]) ? rows[nextRowIndex].children[currentColumnIndex] : currentCell;
+    const prevAcrossCell = (rows[currentRowIndex].children[prevColumnIndex]) ? rows[currentRowIndex].children[prevColumnIndex] : currentCell;
+    const prevDownCell = (rows[prevRowIndex].children[currentColumnIndex]) ? rows[prevRowIndex].children[currentColumnIndex] : currentCell;
 
     // Remove spaces
     if (e.target.value === ' ') {
@@ -113,8 +113,8 @@ const initDisplay = () => {
       let nextLetterCell;
 
       // Handle basic next across and next down 
-      if (nextAcrossCell.innerHTML === '') nextLetterCell = nextDownCell.children[0];
-      if (nextDownCell.innerHTML === '') nextLetterCell = nextAcrossCell.children[0];
+      if (nextDownCell && nextDownCell && nextAcrossCell.innerHTML === '') nextLetterCell = nextDownCell.children[0];
+      if (nextDownCell && nextDownCell && nextDownCell.innerHTML === '') nextLetterCell = nextAcrossCell.children[0];
 
       // Handle next across and next down at intersections
       if (nextAcrossCell.innerHTML !== '' && nextDownCell.innerHTML !== '') {

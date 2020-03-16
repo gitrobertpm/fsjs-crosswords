@@ -111,7 +111,7 @@ const puzzles = {
       random: `Math method for getting a random number between zero and one`,
       number: `Primitive data type that is not a string, boolean, null or undefined`,
       isnan: `Method for checking if something is not a number`,
-      round: `Math method cor rounding a floating point number`,
+      round: `Math method for rounding a floating point number`,
       floor: `Math method for rounding down`,
       ceil: `Math method for rounding up`,
       plus: `Unary ___ operator is the fastest and preferred way to turn something into a number`, 

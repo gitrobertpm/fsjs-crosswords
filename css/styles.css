@@ -352,7 +352,6 @@ table {
   position: fixed;
   top: 0;
   right: 0;
-  /* bottom: -250px; */
   left: 0;
   width: 100%;
   min-height: 100%;
@@ -361,10 +360,6 @@ table {
   transition:  0.4s;
   opacity: 1;
 }
-
-/* .info-overlay {
-  display: block;
-} */
 
 .main-container {
   z-index: -1;

@@ -26,7 +26,7 @@ for (let key in puzzles) {
     const index = title.indexOf('-');
     const firstHalf = title.slice(0, index);
     const otherHalf = title.slice(index + 1);
-    const newString = firstHalf + otherHalf;
+    const newString = firstHalf + ' ' + otherHalf;
     title = newString;
   }
   option.value = title;
@@ -52,12 +52,25 @@ const reset = () => {
 // Puzzle selector
 puzzleSelector.addEventListener('change', e => {
   reset();
-  if (e.target.value.toLowerCase() === 'unitthree') sideToggle = false;
-  if (e.target.value.toLowerCase() === 'unittwo') {
-    initPuzzle(puzzles[e.target.value.toLowerCase()], 30);
+  let val = e.target.value.toLowerCase();
+
+  if (val.includes(' ')) val = val.replace(/\s+/g, '');
+
+  if (val === 'unitone') sideToggle = false;
+  if (val === 'unitthree') sideToggle = false;
+  if (val === 'unitfour') sideToggle = false;
+  if (val === 'unitfive') sideToggle = false;
+
+  if (val === 'unittwo') {
+    initPuzzle(puzzles[val], 29);
+  } else if (val === 'unitfour') {
+    initPuzzle(puzzles[val], 25);
+  } else if (val === 'unitfive') {
+    initPuzzle(puzzles[val], 25);
   } else {
-    initPuzzle(puzzles[e.target.value.toLowerCase()]);
+    initPuzzle(puzzles[val]);
   }
+  
   initDisplay();
 });
 

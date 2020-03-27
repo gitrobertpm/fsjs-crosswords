@@ -88,29 +88,29 @@ const initPuzzle = (puzzle, size) => {
    * @param { [] } coordinates 
    */
   const willFit = (matrix, answer, orientation, coordinates) => {
+    console.log(matrix, answer, orientation, coordinates);
     for (let i = 0, j = coordinates.length; i < j; i++) {
       const r = coordinates[i][0];
       const c = coordinates[i][1];
       const pm = matrix;
       const mc = pm[r][c];
-      const compass = {
-        n: pm[r - 1][c],
-        s: pm[r + 1][c],
-        w: pm[r][c - 1],
-        e: pm[r][c + 1],
-        start: [coordinates[0][0], coordinates[0][1]],
-        end: [coordinates[coordinates.length - 1][0], coordinates[coordinates.length - 1][1]]
-      }
+      const n = (pm[r - 1] !== undefined) ? pm[r - 1][c] : '';
+      const s = (pm[r + 1] !== undefined) ? pm[r + 1][c] : '';
+      const w = (pm[r][c - 1] !== undefined) ? pm[r][c - 1] : '';
+      const e = (pm[r][c + 1] !== undefined) ? pm[r][c + 1] : '';
+      const start = [coordinates[0][0], coordinates[0][1]];
+      const end = [coordinates[coordinates.length - 1][0], coordinates[coordinates.length - 1][1]];       
+
       const before = orientation === 'down' ? 
-                    pm[compass.start[0] - 1][compass.start[1]] : 
-                    pm[compass.start[0]][compass.start[1] - 1];
+                    pm[start[0] - 1][start[1]] : 
+                    pm[start[0]][start[1] - 1];
       const after = orientation === 'down' ? 
-                    pm[compass.end[0] + 1][compass.end[1]] : 
-                    pm[compass.end[0]][compass.end[1] + 1];
+                    pm[end[0] + 1][end[1]] : 
+                    pm[end[0]][end[1] + 1];
       if (mc !== '' && mc !== answer[i]) return false;
       if (before !== '' || after !== '') return false;
-      if (orientation === 'across' && mc === '') if (compass.n !== '' || compass.s !== '') return false;
-      if (orientation === 'down' && mc === '') if (compass.w !== '' || compass.e !== '') return false;
+      if (orientation === 'across' && mc === '') if (n !== '' || s !== '') return false;
+      if (orientation === 'down' && mc === '') if (w !== '' || e !== '') return false;
     }
     return true;
   }

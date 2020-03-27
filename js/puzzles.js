@@ -42,11 +42,13 @@ const puzzles = {
   unittwo: {
     title: `Unit-Two`,
     puzzle: {
-      documentobjectmodel: `What does DOM stand for?`,
       addeventlistener: `Method used on DOM elements to listen for user interaction`,
+      manipulation: `DOM ___ is the act of changing something in the DOM`,
+      document: `What does the D in DOM stand for?`,
+      object: `What does the O DOM stand for?`,
+      model: `What does the M in DOM stand for?`,
       descendant: `A li element is a ___ of the ul element that contains it`,
       ancestor: `The body element is an ___ of all the elements it contains`,
-      manipulation: `DOM ___ is the act of changing something in the DOM`,
       traversal: `DOM ___ is the act of using one DOM element to target and access neighboring DOM elements`,
       parameters: `___ go in the parens when we define a function`,
       arguments: `___ go in the parens when we call or invoke a function`,
@@ -65,10 +67,9 @@ const puzzles = {
   unitthree: {
     title: `Unit-Three`,
     puzzle: {
-      regularexpressions: `Patterns used to match character combinations in strings`,
       preventdefault: `Method called on the event object to prevent some default behavior from taking place`,
+      expressions: `Regular ___ are patterns used to match character combinations in strings`,
       ecmascript: `The official name used to refer to versions of the JavaScript language`,
-      javascript: `Coolest coding language on the web`,
       typescript: `A typed superset of JavaScript that compiles to plain JavaScript`,
       validation: `This checks the value and state of form inputs before allowing a form to submit`,
       checkboxes: `Form inputs that let you mark small boxes in order to make multiple selections`,
@@ -76,9 +77,55 @@ const puzzles = {
       jquery: `A popular JavaScript library`,
       submit: `The ___ event fires on the form element and submit the form data`,
       change: `The ___ event listener works best with select elements and checkboxes`,
+      fieldset: `Form element that breaks a form up into sections`,
+      legend: `Form element used as a heading for a fieldset element`,
       event: `The ___ object comes into play when a user interacts with a web page`,
       options: `Direct children of a select element`,
       labels: `The are usually used in tandem with form inputs to display what the input is called`,
+      radio: `___ buttons are similar to checkboxes except only one selection is allowed`
+    }
+  },
+  unitfour: {
+    title: `Unit-Four`,
+    puzzle: {
+      instantiating: `What we call it when we create an instance of a class`,
+      programming: `What does the P in OOP stand for?`,
+      constructor: `A special method in a class declaration for defining the object created and initialized by the class`,
+      javascript: `Coolest coding language on the web`,
+      properties: `Collection of values associated with an object`,
+      callback: `A function passed to another function as an argument, that is then called in the outer function to complete an action`,
+      oriented: `What does the second O in OOP stand for?`,
+      method: `Object property containing a function definition`,
+      object: `What does the first O in OOP stand for?`,
+      bracket: `Use ___ notation to access object properties programmatically or with a string`,
+      getter: `Method that provides the option of including logic when getting a property of an object`,
+      setter: `Method that provides the option of including logic when setting a property of an object`,
+      foreach: `Method that calls a function once for each element in an array`,
+      reduce: `Method for reducing an array to a single value`,
+      filter: `Method for creating an array of items from another array that pass a specified test`,
+      map: `Method that creates a new array that is the result of calling a function on every item in the original array`,
+      class: `A special JavaScript function that defines a template of an object which can be easily instantiated with the 'new' keyword`,
+      dot: `Use ___ notation to directly access properties of an object`,
+    }
+  },
+  unitfive: {
+    title: `Unit-Five`,
+    puzzle: {
+      asynchronous: `What does the first A in AJAX stand for?`,
+      javascript: `What does the J in AJAX stand for?`,
+      protocol: `What does the P in HTTP stand for?`,
+      notation: `What does the N in JSON stand for?`,
+      transfer: `What does the second T in HTTP stand for?`,
+      response: `When a server delivers a resource to the client`,
+      request: `When the client asks a server for a resource`,
+      telnet: `Fun piece of software for testing HTTP requests`,
+      object: `What does the O in JSON stand for?`,
+      hyper: `What does the H in HTTP stand for?`,
+      text: `What does the first T in HTTP stand for?`,
+      post: `HTTP method used to send data to a server to create or update a resource`,
+      get: `HTTP method for requesting data from a specified resource `,
+      xml: `What does the X in AJAX stand for?`,
+
     }
   },
   strings: {

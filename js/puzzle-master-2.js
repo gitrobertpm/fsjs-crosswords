@@ -88,25 +88,25 @@ const initPuzzle = (puzzle, size) => {
    * @param { [] } coordinates 
    */
   const willFit = (matrix, answer, orientation, coordinates) => {
-    console.log(matrix, answer, orientation, coordinates);
+    const pm = matrix;
+    const start = [coordinates[0][0], coordinates[0][1]];
+    const end = [coordinates[coordinates.length - 1][0], coordinates[coordinates.length - 1][1]];       
+    const before = orientation === 'down' ? 
+                  pm[start[0] - 1][start[1]] : 
+                  pm[start[0]][start[1] - 1];
+    const after = orientation === 'down' ? 
+                  pm[end[0] + 1][end[1]] : 
+                  pm[end[0]][end[1] + 1];
+                  
     for (let i = 0, j = coordinates.length; i < j; i++) {
       const r = coordinates[i][0];
       const c = coordinates[i][1];
-      const pm = matrix;
       const mc = pm[r][c];
       const n = (pm[r - 1] !== undefined) ? pm[r - 1][c] : '';
       const s = (pm[r + 1] !== undefined) ? pm[r + 1][c] : '';
       const w = (pm[r][c - 1] !== undefined) ? pm[r][c - 1] : '';
       const e = (pm[r][c + 1] !== undefined) ? pm[r][c + 1] : '';
-      const start = [coordinates[0][0], coordinates[0][1]];
-      const end = [coordinates[coordinates.length - 1][0], coordinates[coordinates.length - 1][1]];       
-
-      const before = orientation === 'down' ? 
-                    pm[start[0] - 1][start[1]] : 
-                    pm[start[0]][start[1] - 1];
-      const after = orientation === 'down' ? 
-                    pm[end[0] + 1][end[1]] : 
-                    pm[end[0]][end[1] + 1];
+      
       if (mc !== '' && mc !== answer[i]) return false;
       if (before !== '' || after !== '') return false;
       if (orientation === 'across' && mc === '') if (n !== '' || s !== '') return false;
@@ -121,16 +121,17 @@ const initPuzzle = (puzzle, size) => {
    * @param { string } existingAnswer 
    */
   const placeNewAnswer = (newAnswer, existingAnswer) => {
+    const existingAnswerOrientation = puzzleData[existingAnswer].orientation;
+    const newAnswerOrientation = (existingAnswerOrientation === 'down') ? 'across' : 'down';
     const ti = (sideToggle) ? 0 : newAnswer.length;
     const tj = (sideToggle) ? newAnswer.length : 0;
+
     for (let i = ti, j = tj; (sideToggle) ? i < j : j < i; (sideToggle) ? i++ : i--) {
       for (let ii = 0, jj = existingAnswer.length; ii < jj; ii++) {
         if (newAnswer[i] === existingAnswer[ii]) {
           const matchCoordinates = puzzleData[existingAnswer].coordinates[ii];
           const r = matchCoordinates[0];
           const c = matchCoordinates[1];
-          const existingAnswerOrientation = puzzleData[existingAnswer].orientation;
-          const newAnswerOrientation = (existingAnswerOrientation === 'down') ? 'across' : 'down';
           const newStartCoordinates = (existingAnswerOrientation === 'down') ? [r, c - i] : [r - i, c];
           const nr = newStartCoordinates[0];
           const nc = newStartCoordinates[1];
